@@ -1,52 +1,63 @@
-import { View, Text, StatusBar, ScrollView } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import Feather from 'react-native-vector-icons/Feather'
-import Stories from '../components/Stories'
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { getData } from './Data/Data'; // Import data
 
-const Home = () => {
-    return (
-        <SafeAreaView>
-            <StatusBar
-                backgroundColor="black"
-                barStyle="white-content"
-            />
-            <View
-                style={{ 
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                    paddingHorizontal: 15,
-                    alignItems: 'center',
-                    }}
-                    >
-                <View>
-                    <Text
-                        style={{
-                            fontSize: 25,
-                            fontWeight: 500,
-                        }}
-                        >
-                        공학동아리 가위바위보 게임
-                    </Text>
-                </View>
-                <View
-                    style={{
-                        justifyContent: 'space-between',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}
-                    >
-                        <FontAwesome name="plus-squre-o" style={{fontSize: 24, paddingHorizontal: 15}} />
-                        <Feather name="navigation" style={{ fontSize: 24 }} />
-                    </View>
-            </View>
-            <ScrollView>
-                {/*Stories*/}
-                <Stories />
-            </ScrollView>
-        </SafeAreaView>
-    )
+export default function Home() {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    // Fetch the data when the component mounts
+    const data = getData();
+    setUserData(data);
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      {/* Welcome Text at the top left */}
+      <Text style={styles.welcome}>Welcome to the rock-paper-scissors game</Text>
+
+      {/* Student Number and Name */}
+      <Text style={styles.userInfo}>Student Number: {userData.studentNumber}</Text>
+      <Text style={styles.userInfo}>Name: {userData.name}</Text>
+
+      {/* Opaque Blue Section at the bottom */}
+      <View style={styles.aiContainer}>
+        <Text style={styles.aiText}>AI is selecting...</Text>
+      </View>
+    </View>
+  );
 }
 
-export default Home
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',  // Align items at the top
+    alignItems: 'flex-start',       // Align items at the left
+    padding: 16,
+  },
+  welcome: {
+    fontSize: 18,          // Larger font for the welcome message
+    fontWeight: 'bold',
+    marginBottom: 20,      // Space between the welcome message and user info
+  },
+  userInfo: {
+    fontSize: 11,          // 11-point font size
+    marginBottom: 8,       // Space between student number and name
+  },
+  aiContainer: {
+    position: 'absolute',       // Position at the bottom of the screen
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 255, 0.3)',  // Opaque blue color
+    paddingVertical: 20,        // Vertical padding for better spacing
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  aiText: {
+    fontSize: 16,      // Font size for "AI is selecting..."
+    fontWeight: 'bold',
+    color: 'white',    // White text color to contrast with the blue background
+  },
+});
+

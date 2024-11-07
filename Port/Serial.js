@@ -42,4 +42,9 @@ const App = () => {
   );
 };
 
+export const sendSerial = (choice) => {
+  console.log('Sending to Serial: ${choice}');
+}
+
+
 export default App;
