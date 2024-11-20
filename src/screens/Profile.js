@@ -4,15 +4,15 @@ import axios from 'axios';
 
 export default function Profile() {
   const [userData, setUserData] = useState({});
-  const [aiScores, setAiScores] = useState([0, 0, 0, 0, 0]);  // Store AI's scores for each round
-  const [humanScores, setHumanScores] = useState([0, 0, 0, 0, 0]);  // Store HUMAN's scores for each round
+  const [aiScores, setAiScores] = useState([0, 0, 0, 0, 0]);  // 자 점수표입니다^^ 우리 5판이었죠? 각각 입력하는 변수 만든거에요^^ 근데 AI꺼임 사랑해줘
+  const [humanScores, setHumanScores] = useState([0, 0, 0, 0, 0]);  // 이게 인간 점수표^^
 
   useEffect(() => {
-    // Get user data from Data.js file (this assumes you've set the user's data in Data.js)
+    // 근데 이걸 데이터베이스에 보내야지 판정을 하고 뭐 순위 보내고 하잖아여 그래서 보내는거에요
     const data = getData();
     setUserData(data);
 
-    // Fetch the current scores from the backend
+    // 현재 점수 알아내는 백엔드 코드입니다아^^
     const fetchScores = async () => {
       try {
         const response = await axios.get('http://localhost:5000/get_scores');
@@ -25,13 +25,13 @@ export default function Profile() {
       }
     };
 
-    // Fetch scores when the component mounts
+    // 이건 내가 하긴 했는데 나도 모르겠어 근데 건들지는 말아봐
     fetchScores();
 
-    // Optionally, set up an interval to fetch scores periodically (every 5 seconds)
+    // 나도 몰라
     const intervalId = setInterval(fetchScores, 5000);
 
-    // Cleanup on unmount
+    // 모른다고
     return () => clearInterval(intervalId);
   }, []);
 
@@ -40,7 +40,7 @@ export default function Profile() {
       <Text style={styles.title}>Final Score</Text>
 
       <View style={styles.table}>
-        {/* AI Scores Table */}
+        {/* 이게 AI 판마다 해주는거 */}
         <View style={styles.tableRow}>
           <Text style={styles.tableCell}>Pan (Game)</Text>
           <Text style={styles.tableCell}>1</Text>
@@ -56,7 +56,7 @@ export default function Profile() {
           ))}
         </View>
 
-        {/* HUMAN Scores Table */}
+        {/* 이게 인간 경기수 */}
         <View style={styles.tableRow}>
           <Text style={styles.tableCell}>Pan (Game)</Text>
           <Text style={styles.tableCell}>1</Text>
@@ -74,7 +74,7 @@ export default function Profile() {
       </View>
 
       <Text style={styles.finalScore}>
-        {/* Calculate final score */}
+        {/* 점수 계산기^^ */}
         Final Score: HUMAN - {humanScores.reduce((a, b) => a + b, 0)} : AI - {aiScores.reduce((a, b) => a + b, 0)}
       </Text>
     </View>

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import axios from 'axios';
-import { getData } from './Data/Data'; // Get student data from Data.js
+import { getData } from './Data/Data'; // 학생 데이터 받아오는거당아아아가
 
 export default function Home2({ nextScreen }) {
   const [userData, setUserData] = useState({});
   const [humanChoice, setHumanChoice] = useState('');
   const [computerChoice, setComputerChoice] = useState('');
   const [winner, setWinner] = useState('');
-  const [score, setScore] = useState(0);  // Add state for the score
+  const [score, setScore] = useState(0);  // 이길때 마다 추가하는거임
 
   useEffect(() => {
     const data = getData();
@@ -19,19 +19,19 @@ export default function Home2({ nextScreen }) {
     setHumanChoice(choice);
 
     try {
-      // Send the player's choice to the Python backend
+      // 파이썬 보고 이거 플레이어 우승자 선택에서 파일 보내주는거임
       const response = await axios.post('http://localhost:5000/play', {
         player_move: choice,
       });
 
-      // Extract the computer's move, winner, and score from the response
+      // 판정하는거
       const { computer_move, winner, score } = response.data;
 
       setComputerChoice(computer_move);
       setWinner(winner);
-      setScore(score);  // Update score based on backend response
+      setScore(score);  // 그래서 파이썬 파일에 업데이트하게 보내주는거
 
-      // Display the result to the player
+      // 이걸 이제 화면으로 보여주는거임
       Alert.alert('Game Result', `Computer chose: ${computer_move}\nWinner: ${winner}\nYour score: ${score}`);
     } catch (error) {
       console.error('Error playing the game:', error);
@@ -65,7 +65,7 @@ export default function Home2({ nextScreen }) {
         </View>
       </View>
 
-      <Text style={styles.scoreText}>Your Score: {score}</Text>  {/* Display the score here */}
+      <Text style={styles.scoreText}>Your Score: {score}</Text>  {/* 그냥 점수 알려주는거 */}
 
       <Button title="Next" onPress={nextScreen} />
     </View>

@@ -4,29 +4,29 @@ import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import { getAllUserData, calculateTotalScore } from './Data/Data.js';
 
-// Get device width for responsive chart
+// 이제 그래프 만들어주는건데요 지우면 클나요
 const screenWidth = Dimensions.get('window').width;
 
 const TopUsersBarGraph = () => {
   const [topUsers, setTopUsers] = useState([]);
 
   useEffect(() => {
-    // Fetch all user data
+    // 모든 유저의 데이터를 모읍시다!
     const users = getAllUserData();
     
-    // Calculate total score for each user and sort by score
+    // 모은 데이터를 그래프로 나타내는거에요^^
     const usersWithTotalScore = users.map(user => ({
       ...user,
       totalScore: calculateTotalScore(user.scores),
     }));
 
-    // Sort users by total score in descending order
+    // 하지만 최종 점수를 디버깅 해야겠죠?
     usersWithTotalScore.sort((a, b) => b.totalScore - a.totalScore);
 
-    // Select the top 20 users
+    // 그리고 높은 결과대로 20인을 선발해요!
     const top20Users = usersWithTotalScore.slice(0, 20);
 
-    // Prepare data for bar graph
+    // 다시 그래프에 나타냅시다!
     const labels = top20Users.map(user => user.student_name);
     const data = top20Users.map(user => user.totalScore);
 
@@ -51,14 +51,14 @@ const TopUsersBarGraph = () => {
                 },
               ],
             }}
-            width={screenWidth * 1.5} // Make the chart wide enough to fit all labels
+            width={screenWidth * 1.5} // 이건 이제 꾸미는건데 걍 건들이지마
             height={220}
             fromZero={true}
             chartConfig={{
               backgroundColor: '#e26a00',
               backgroundGradientFrom: '#fb8c00',
               backgroundGradientTo: '#e26a00',
-              decimalPlaces: 0, // No decimal places
+              decimalPlaces: 0, 
               color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               style: {

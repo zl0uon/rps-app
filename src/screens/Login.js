@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { setData } from './Data/Data'; // Import the data handling function
+import { setData } from './Data/Data'; // 얘도 인공지능 데이터 불러오는거
 
 export default function Login() {
   const navigation = useNavigation();
 
-  // State to manage form input
+  // 학번 이름 입력하거라아아ㅏㅏㅏ
   const [studentNumber, setStudentNumber] = useState('');
   const [name, setName] = useState('');
 
-  // Handle the form submission
+  // 로그인 버튼 누르기이
   const handleSubmit = () => {
-    // Save data into the Data.js (or any other data management solution)
+    // 데이터 베이스에 이 정보 주는거임
     setData({ studentNumber, name });
 
-    // Navigate to the Home screen
+    // 홈화면으로 들어가자아
     navigation.navigate('Home');
   };
 
   return (
     <View style={styles.container}>
-      {/* Hello Text at the top left */}
+      {/* 걍 화면 위에 헬로 하는거임 */}
       <Text style={styles.greeting}>Hello</Text>
 
-      {/* Instruction Text */}
+      {/* 학번 이름 입력하거라 문구 */}
       <Text style={styles.instruction}>Please enter your student number and name</Text>
 
-      {/* Login Form */}
+      {/* 멋진 로그인 폼 */}
       <TextInput
         style={styles.input}
         placeholder="Student Number"
@@ -42,7 +42,7 @@ export default function Login() {
         onChangeText={setName}
       />
 
-      {/* Start Game Button */}
+      {/* 게임 시작버튼 */}
       <Button title="Start Game" onPress={handleSubmit} />
     </View>
   );

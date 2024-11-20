@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { getData } from './Data/Data'; // Import data
+import { getData } from './Data/Data'; // 인공지능한테서 데이터 받아오는거
 
 export default function Home() {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // Fetch the data when the component mounts
+    // 이것도 데이터 받아오는거임
     const data = getData();
     setUserData(data);
   }, []);
 
   return (
     <View style={styles.container}>
-      {/* Welcome Text at the top left */}
+      {/* 걍 제일 위에다가 뭐시기 말하는거 */}
       <Text style={styles.welcome}>Welcome to the rock-paper-scissors game</Text>
 
-      {/* Student Number and Name */}
+      {/* 학번 이름 나타내주는거 */}
       <Text style={styles.userInfo}>Student Number: {userData.studentNumber}</Text>
       <Text style={styles.userInfo}>Name: {userData.name}</Text>
 
-      {/* Opaque Blue Section at the bottom */}
+      {/* Ai 고르고 있을때 화면 */}
       <View style={styles.aiContainer}>
         <Text style={styles.aiText}>AI is selecting...</Text>
       </View>
