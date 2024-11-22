@@ -11,7 +11,8 @@ const usersData = [
       scores: [15, 15, 10, 10, 15],
     },
     // 그렇게해서 더 받아봅시다
-  ];
+  ];a
+  
   
   // 하지만 데이터를 받는 함수가 있어야겠죠?
   export const getAllUserData = () => {

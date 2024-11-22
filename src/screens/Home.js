@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       {/* 걍 제일 위에다가 뭐시기 말하는거 */}
-      <Text style={styles.welcome}>Welcome to the rock-paper-scissors game</Text>
+      <Text style={styles.welcome}>안녕하세요. 공학동아리 가위바위보입니다.</Text>
 
       {/* 학번 이름 나타내주는거 */}
       <Text style={styles.userInfo}>Student Number: {userData.studentNumber}</Text>
@@ -22,7 +22,7 @@ export default function Home() {
 
       {/* Ai 고르고 있을때 화면 */}
       <View style={styles.aiContainer}>
-        <Text style={styles.aiText}>AI is selecting...</Text>
+        <Text style={styles.aiText}>AI가 선택하고 있는 중입니다.</Text>
       </View>
     </View>
   );

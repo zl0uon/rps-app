@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useState } from 'react';
 import Login from './src/screens/Login';
 import Home from './src/screens/Home';
 import Home2 from './src/screens/Home2';
@@ -10,11 +9,12 @@ import Home2 from './src/screens/Home2';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [cycle, setCycle] = useState(0);  // State to track screen cycling
+  const [cycle, setCycle] = useState(0); 
 
-  // Function to handle cycling between Home.js and Home2.js
-  const nextScreen = () => {
-    setCycle((prevCycle) => (prevCycle + 1) % 2);  // Toggle between Home (0) and Home2 (1)
+  const nextScreen = (navigation) => {
+    const nextScreen = cycle === 0 ? 'Home2' : 'Home';
+    setCycle((prevCycle) => (prevCycle + 1) % 2);
+    navigation.navigate(nextScreen); 
   };
 
   return (
@@ -22,18 +22,17 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         {/* Login Screen */}
         <Stack.Screen name="Login" component={Login} />
-        
-        {/* Home Screen with Cycle */}
+
+        {/* Home Screen */}
         <Stack.Screen name="Home">
-          {(props) => <Home {...props} nextScreen={nextScreen} />}
+          {(props) => <Home {...props} nextScreen={() => nextScreen(props.navigation)} />}
         </Stack.Screen>
 
-        {/* Home2 Screen with Cycle */}
+        {/* Home2 Screen */}
         <Stack.Screen name="Home2">
-          {(props) => <Home2 {...props} nextScreen={nextScreen} />}
+          {(props) => <Home2 {...props} nextScreen={() => nextScreen(props.navigation)} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-

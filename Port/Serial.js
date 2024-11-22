@@ -6,6 +6,7 @@ const App = () => {
   const [device, setDevice] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
 
+
   useEffect(() => {
     // 블루투스 초기화
     const initializeBluetooth = async () => {

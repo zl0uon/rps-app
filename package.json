@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "git": "^0.1.5",
+    "node": "^20.18.1",
     "react": "18.3.1",
     "react-native": "0.76.1",
-    "react-native-vector-icons": "^10.2.0"
+    "react-native-vector-icons": "^10.2.0",
+    "watchman": "^1.0.0",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
