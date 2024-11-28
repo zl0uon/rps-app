@@ -6,19 +6,25 @@ const App = () => {
   const [device, setDevice] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
 
-
   useEffect(() => {
-    // 블루투스 초기화
     const initializeBluetooth = async () => {
       await BluetoothSerial.requestEnable();
       const devices = await BluetoothSerial.list();
-      const foundDevice = devices.find(d => d.name === 'YourDeviceName'); // 아두이노의 블루투스 이름
+      const foundDevice = devices.find(d => d.name === 'YourDeviceName');
       if (foundDevice) {
         setDevice(foundDevice);
       }
     };
+
     initializeBluetooth();
-  }, []);
+
+    // Cleanup function when the component is unmounted
+    return () => {
+      if (isConnected) {
+        BluetoothSerial.disconnect();
+      }
+    };
+  }, [isConnected]);
 
   const connect = async () => {
     if (device) {
@@ -44,8 +50,7 @@ const App = () => {
 };
 
 export const sendSerial = (choice) => {
-  console.log('Sending to Serial: ${choice}');
-}
-
+  console.log(`Sending to Serial: ${choice}`);
+};
 
 export default App;
